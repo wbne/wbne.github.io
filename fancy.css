@@ -25,6 +25,11 @@ a:hover
     margin-left: 5px;
     margin-top: -15px;
 }
+#blog:hover
+{
+    background: none;
+    color: #bb3016;
+}
 h1
 {
   font-family: "Roboto Condensed", sans-serif;
