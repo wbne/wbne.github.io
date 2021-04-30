@@ -4,8 +4,9 @@
   <title>Homepage</title>
 <link rel = "stylesheet" type = "text/css" href = "fancy.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+<script type="text/javascript" src="lightbulb.js"></script>
 </head>
-<body>
+<body class = "lightmode">
   <h1>Ben Wang</h1>
   <p>[dashing picture goes here]</p>
   <div class="container">
@@ -15,28 +16,45 @@
   <h2>Current Projects</h2>
   </br>
   <div class="container left-align">
-    <p class="container-item padding">covid19-analysis-website</p>
+    <a class="container-item padding" href="https://wbne.github.io/covid_analysis_website/">covid19-analysis-website</a>
     <p class="container-item">interactive site for a covid-19 tweet dataset from Alexander Kahanek.</p>
   </div>
   <div class="container left-align">
-    <p class="container-item padding">web_log</p>
+    <a class="container-item padding" href="https://github.com/wbne/weblog">web_log</a>
     <p class="container-item">time tracking extension that generates a graph like the timer widget on iphone.</p>
   </div>
   <div class="container left-align">
-    <p class="container-item padding">qol_school_extension</p>
+    <a class="container-item padding" href="https://addons.mozilla.org/en-US/firefox/addon/quick-links-i-guess/">qol_school_extension</a>
     <p class="container-item">simple bookmark extension that syncs across cloud.</p>
   </div>
   <div class="container left-align">
-    <p class="container-item padding">See-NN</p>
+    <a class="container-item padding" href="https://github.com/wbne/See-NN">See-NN</a>
     <p class="container-item">javafx program that visualizes hidden layer outputs from cnns.</p>
   </div>
   <div class="container left-align">
-    <p class="container-item padding">info4900-visualizer</p>
+    <a class="container-item padding" href="https://wbne.github.io/info4900-visualizer/">info4900-visualizer</a>
     <p class="container-item">website that produces graphs using user-inputted data.</p>
   </div>
   <div class="container left-align">
-    <p class="container-item padding">this website</p>
+    <a class="container-item padding" href="">this website</a>
     <p class="container-item">provides data on who i am and what i work on.</p>
   </div>
+
+  <h2>Completed Projects</h2>
+  </br>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://github.com/wbne/image-only-quizlet">image-only-quizlet</a>
+    <p class="container-item">image flashcard program in java.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://github.com/wbne/sesame-in-firefoxish">sesame-in-firefoxish</a>
+    <p class="container-item">firefox "port" for the sesame extension on chrome.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://wbne.github.io/2019-2021_portfolio/">2019-2021_portfolio</a>
+    <p class="container-item">website that has some of the current projects as well as less interesting ones.</p>
+  </div>
+
+<button onclick="changeModes()" class="modeToggle"><image id="lightdark" src="light_dark_mode.png"></image></button>
 </body>
 </html>

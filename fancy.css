@@ -2,6 +2,7 @@ html
 {
   text-align: center;
   font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
 }
 h1, h2
 {
@@ -23,6 +24,18 @@ h1:after, h2:after
   animation-timing-function: ease;
 }
 
+a {
+  padding-top: 15px;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover {
+  opacity: .5;
+}
+
 @keyframes underline-effect
 {
   0% {left: 30%; width: 0%;}
@@ -39,7 +52,9 @@ h1:after, h2:after
 
 .container-item
 {
-  padding: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .left-align
@@ -52,4 +67,41 @@ h1:after, h2:after
 .padding
 {
   width: 20vw;
+}
+
+.lightmode
+{
+  background: white;
+  color: black;
+}
+
+.darkmode
+{
+  background: black;
+  color: white;
+}
+
+.modeToggle
+{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background: none;
+  width: 30px;
+  height: 25px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.modeToggle:hover
+{
+  opacity: .5;
+  cursor: pointer;
+}
+
+#lightdark
+{
+  width: 20px;
+  height: 20px;
 }
