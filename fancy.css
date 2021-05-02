@@ -26,6 +26,7 @@ h1:after, h2:after
 
 a {
   padding-top: 15px;
+  color: inherit;
 }
 
 a:visited {
