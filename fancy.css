@@ -37,6 +37,13 @@ a:hover {
   opacity: .5;
 }
 
+img {
+  width: 200px;
+  margin: 20px;
+  border-radius: 200px;
+  margin-top: -10px;
+}
+
 @keyframes underline-effect
 {
   0% {left: 30%; width: 0%;}
@@ -67,7 +74,8 @@ a:hover {
 
 .padding
 {
-  width: 20vw;
+  min-width: 20vw;
+  max-width: 20vw;
 }
 
 .lightmode
