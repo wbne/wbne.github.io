@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homepage</title>
+<link rel = "stylesheet" type = "text/css" href = "fancy.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&amp;display=swap">
+<script type="text/javascript" src="lightbulb.js"></script>
+<script type="text/javascript" src="divPopulator.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    generateList('readings', 'readings.txt');
+  });
+</script>
+</head>
+<body class = "lightmode">
+  <a href="index.html"><h1>GO BACK HOME</h1></a>
+  <h2>Recent Readings [Defunct]</h2>
+  </br>
+  <div id="readings"></div>
+  
+  <h2>Projects</h2>
+  </br>
+  <div id="projects"></div>
+  <div class="container left-align">
+    <a class="container-item padding">Mirage 2</a>
+    <p class="container-item">TBA</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding">Backseat Barry</a>
+    <p class="container-item">TBA</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding">CS6331: Multimedia Systems</a>
+    <p class="container-item">semester project looking at various qr scanning techniques and AR technologies</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding">CS4485: Senior Design</a>
+    <p class="container-item">we don't talk about this one...</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding">CS6375: Gogate's Graduate ML</a>
+    <p class="container-item">a repo for code written for utd's cs6375.003 which implements 4 papers + reports</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding">CS4375: Ng's ML</a>
+    <p class="container-item">a repo for code written for utd's cs4375.hon</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding">CS4348: OS</a>
+    <p class="container-item">a repo for code written for utd's cs4348.hon</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://wbne.github.io/d3_templates/">d3_templates</a>
+    <p class="container-item">an improved version of my info4900 project. now with bearable design.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://github.com/acmutd/nebula-web">Nebula Web</a>
+    <p class="container-item">tool for utd students to plan schedules and other school things like research, course plans, and more!</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://github.com/wbne/weblog">web_log</a>
+    <p class="container-item">time tracking extension that generates a graph like the timer widget on iphone.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://addons.mozilla.org/en-US/firefox/addon/quick-links-i-guess/">qol_school_extension</a>
+    <p class="container-item">simple bookmark extension that syncs across cloud.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://github.com/wbne/JIM/">JIM</a>
+    <p class="container-item">java ide that uses linux keybinds. yes it's worse than vim and yes i will try to use it.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://wbne.github.io/info4900-visualizer/">info4900-visualizer</a>
+    <p class="container-item">website that produces graphs using user-inputted data.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://github.com/wbne/class_flowchart">class_flowchart</a>
+    <p class="container-item">A network graph to plan out the prereqs needed for a course.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://wbne.github.io/covid_analysis_website/">covid19-analysis-website</a>
+    <p class="container-item">interactive site for a covid-19 tweet dataset from Alexander Kahanek.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://github.com/wbne/See-NN">See-NN</a>
+    <p class="container-item">javafx program that visualizes hidden layer outputs from cnns.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="">storybookAR</a>
+    <p class="container-item">fun hackathon project from alphaHacks with David.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://github.com/wbne/sesame-in-firefoxish">sesame-in-firefoxish</a>
+    <p class="container-item">firefox "port" for the sesame extension on chrome.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://addons.mozilla.org/en-US/firefox/addon/wbne-s-homepage/">personal homepage</a>
+    <p class="container-item">custom extension that replaces the new tab with my personalized home page.</p>
+  </div>
+  <div class="container left-align">
+    <a class="container-item padding" href="https://wbne.github.io/2019-2021_portfolio/">2019-2021_portfolio</a>
+    <p class="container-item">website that has some of the current projects as well as less interesting ones.</p>
+  </div>
+
+<button onclick="changeModes()" class="modeToggle"><image id="lightdark" src="light_dark_mode.png"></image></button>
+</body>
+</html>
