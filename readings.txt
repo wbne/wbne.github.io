@@ -1,0 +1,61 @@
+Biography|Ask Iwata
+Economics|Analysis of factors informing car purchases on the internet by automotive customers in Germany
+Machine Learning|Factors influencing a customers decision to purchase a car
+Machine Learning|Building useful models from imbalanced data with sampling and boosting
+Machine Learning|Predicting disease risk from highly imbalanced data using Random Forests
+Machine Learning|An empirical study on pre-processing high dimensional imbalances for classification
+Machine Learning|A review of imbalanced data using oversampling and undersampling techniques
+Statistics|Towards measles elimination in Italy: Monitoring herd immunity by Bayesian mixture modeling of serological data
+Machine Learning|Imbalanced Classification Problems: Systematic Study, Issues and Best Practices
+Machine Learning|Feature Selection for High-Dimensional Data: A Fast Correlation-Based Filter Solution
+Cybersecurity|Injecting Software Vulnerabilities with Voltage Glitching - Lu
+Cybersecurity|Methodically Defeating Nintendo Switch Security (2019)
+Statistics|Likelihood - Berger and Wolpert (1984)
+ML|Uncertainty - Natarajan?
+Statistics|Biostatistics and Bayes - Berslow (1990)
+Statistics|BDA3...
+Statistics|MIT OCW 18.05 (Intro to prob and stats)
+AI|What the Lone Banana Problem reveals about the Nature of Generative AI
+Computer Networks|Beej.us Introduction to Computer Networks
+Industry|The Staff Engineer's Path
+Multimedia|Optical Delusions: A Study of Malicious QR Codes in the Wild
+Multimedia|A Study of Malicious QR Codes
+ML|SVMs for Pattern Classification
+Economics|How to Day Trade for a Living
+ML|Little Book on Deep Learning
+ML|Computers and Pattern Recognition (Arkadev and Braverman)
+AI|Algorithmic Methods for AI (Griffith and Palissier)
+NLP|Tuning Sphinx to Outperform Google's Speech Recognition API
+NLP|Investigation on Speech Recognition Accuracy via Sphinx Toolkits (Zealouk et al)
+NLP|Robot Operation via Natural Voice Control (Lee et al)
+NLP|Voice Call Analytics Using NLP (VS and Kumar)
+ML|Deep Residual Learning for Image Recognition (He et al)
+ML|Learning with Mixtures of Trees (Meila and Jordan)
+ML|Approximating discrete probability distributions with dependence trees (Chow and Liu)
+NLP|Speech and Language Processing 3rd ed. (Jurafsky and Martin)
+NLP|An Alignment-based Approach to Text Segmentation Similarity Scoring (Diaz and Ouyang)
+Quantum ML|Challenges and Opportunities in Quantum Machine Learning (Cerezo et al.)
+ML + Dist. Sys.|Strategies and Principles of Distributed Machine Learning on Big Data (Xing et al.)
+ML|Do Orcas Have Semantic Language? (Sandholm)
+ML|Empirical Analysis of Predictive Algorithms for Collaborative Filtering (Breese et al.)
+CV|Hybrid Images (Oliva et al.)
+AI|Genetic Algorithms - Literature Review (Lambora et al.)
+AI|Genetic Algorithms (Forrest)
+ML|Spam Filtering with Naive Bayes (Metsis et al.)
+Technology|Self Tracking by Neff & Nafus
+Reinforcement Learning|Data-driven control of COVID-19 in buildings: a reinforcement-learning approach
+I have no idea|Exploring the effects of gamification pedagogy on children’s reading
+Bioinformatics|Introduction to Bioinformatics - Ramsden
+Networking|All One Needs to Know about Metaverse
+Economics|How to Motivate and Engage Generation Clash of Clans at Work?
+Economics?|Understanding Currencies in Video Games: A Review
+Probability|Optimal Strategy in “Guess Who?”: Beyond Binary Search
+Operating Systems|Mixed Scheduling in a Hard Real-Time Environment (Liu & Layland)
+Operating Systems|Impossibility of Consensus with One Faulty Process (FLP paper)
+Machine Learning|Measuring Overfitting in Convolutional Neural Networks using Adversarial Perturbations and Label Noise
+Machine Learning|Analyzing Machine Learning Models for Credit Scoring with XAI and Optimizing Investment Decisions
+Operating Systems|Static Resource Allocation in a Distributed System (Lynch)
+Operating Systems|A New Solution of Dijkstra's Concurrent Programming Problem (Lamport Bakery Paper)
+Bioinformatics/Machine Learning|ProteinNet: A standardized data set for ML models on proteins
+Operating Systems|Analyzing Amdahl's Law in Multicore Era
+Machine Learning|Understanding Neural Networks Through Deep Visualization

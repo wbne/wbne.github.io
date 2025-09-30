@@ -1,0 +1,12 @@
+{
+    "blogs": [
+        {
+            "filename": "first-blog-for-pry-blog.pdf",
+            "title": "State of ratratrat33",
+            "tags": [
+                "osrs"
+            ],
+            "published": "09/30/2025"
+        }
+    ]
+}

@@ -6,6 +6,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&amp;display=swap">
 <script type="text/javascript" src="lightbulb.js"></script>
+<script type="text/javascript" src="blogPopulator.js"></script>
+<script type="text/javascript" src="divPopulator.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      // NOTE: For this to work when you run it locally, you'll need a simple
+      // web server, as browsers block fetch() for local file:// paths due to security policies.
+      // Many code editors (like VS Code with the "Live Server" extension) can do this for you.
+      loadBlogs();
+      generateList('readings', 'readings.txt');
+      generateList('experiences', 'experiences.txt')
+  });
+</script>
 </head>
 <body class = "lightmode">
   <h1>Ben Wang</h1>
@@ -13,7 +25,7 @@
   <div class="container">
     <p class="container-item">wangbzk[at]gmail.com</p>
     <p class="container-item">Github: github.com/wbne</p>
-    <a class="container-item" target="_blank" href="https://www.linkedin.com/in/benjamin-wang-65b83a20a/">linkedin</a>
+    <a class="container-item" target="_blank" href="https://www.linkedin.com/in/wbne/">linkedin</a>
   </div>
   <div class="container">
     <p class="container-item">UTD BS CS '23</p>
@@ -22,283 +34,18 @@
   
   <h2>Experience</h2>
   </br>
-  <div class="container left-align">
-    <p class="container-item padding">Associate Software Engineer @ Capital One</p>
-    <p class="container-item">Part of the AutoNavigator Marketing Data Team. Help build various data pipelines such as a Thompson Sampling feedback script</p>
-    <p class="container-item">Also helping in a data visualizer project which processes data metrics related to AutoNavigator.</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Software Engineer Intern (again) @ Capital One</p>
-    <p class="container-item">Constructed a knowledge graph in Stardog consolidating over 10 billion rows of data over 8 production databases,
-centralizing exploratory data analysis for machine learning and data correction across Bank, Account, and Data Science
-teams. In addition worked on downstream applications and testing frameworks utilizing the knowledge graph. </p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Temporary TIP Director @ ACM UTD</p>
-    <p class="container-item">Filled in for the Technical Interview Prep director role and helped a classroom of 24 students learn the ropes of swe interviews</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">VP @ ACM UTD</p>
-    <p class="container-item">Organized, Hosted, and Presented various events, workshops, and meetings. Some specific examples include HackUTD and Fall 2023 Kick-Off</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Software Engineer Intern @ Capital One</p>
-    <p class="container-item">created angular/springboot/aws full-stack app to move auto-loan letter infrastructure from sql and on-the-fly queries.</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Undergraduate Researcher @ UNT</p>
-    <p class="container-item">analyzed convolutional neural network sparsity and developed visualization and analytical tools for top tier ILSVRC models</p>
-  </div>
+  <div id="experiences"></div>
+  
+  <a href="blogs/" title="Blog Metadata Generator"><h2>Blogs</h2></a>
+  <div id="blogs"></div>
 
-  <h2>Recent Readings</h2>
+  <h2>Recent Readings [Defunct]</h2>
   </br>
-  <div class="container left-align">
-    <p class="container-item padding">Biography</p>
-    <p class="container-item">Ask Iwata</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Economics</p>
-    <p class="container-item">Analysis of factors informing car purchases on the internet by automotive customers in Germany</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">Factors influencing a customers decision to purchase a car</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">Building useful models from imbalanced data with sampling and boosting</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">Predicting disease risk from highly imbalanced data using Random Forests</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">An empirical study on pre-processing high dimensional imbalances for classification</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">A review of imbalanced data using oversampling and undersampling techniques</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Statistics</p>
-    <p class="container-item">Towards measles elimination in Italy: Monitoring herd immunity by Bayesian mixture modeling of serological data</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">Imbalanced Classification Problems: Systematic Study, Issues and Best Practices</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">Feature Selection for High-Dimensional Data: A Fast Correlation-Based Filter Solution</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Cybersecurity</p>
-    <p class="container-item">Injecting Software Vulnerabilities with Voltage Glitching - Lu</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Cybersecurity</p>
-    <p class="container-item">Methodically Defeating Nintendo Switch Security (2019) </p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Statistics</p>
-    <p class="container-item">Likelihood - Berger and Wolpert (1984) </p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">Uncertainty - Natarajan? </p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Statistics</p>
-    <p class="container-item">Biostatistics and Bayes - Berslow (1990) </p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Statistics</p>
-    <p class="container-item">BDA3...</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Statistics</p>
-    <p class="container-item">MIT OCW 18.05 (Intro to prob and stats)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">AI</p>
-    <p class="container-item">What the Lone Banana Problem reveals about the Nature of Generative AI</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Computer Networks</p>
-    <p class="container-item">Beej.us Introduction to Computer Networks</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Industry</p>
-    <p class="container-item">The Staff Engineer's Path</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Multimedia</p>
-    <p class="container-item">Optical Delusions: A Study of Malicious QR Codes in the Wild</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Multimedia</p>
-    <p class="container-item">A Study of Malicious QR Codes</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">SVMs for Pattern Classification</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Economics</p>
-    <p class="container-item">How to Day Trade for a Living</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">Little Book on Deep Learning</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">Computers and Pattern Recognition (Arkadev and Braverman)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">AI</p>
-    <p class="container-item">Algorithmic Methods for AI (Griffith and Palissier)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">NLP</p>
-    <p class="container-item">Tuning Sphinx to Outperform Google's Speech Recognition API</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">NLP</p>
-    <p class="container-item">Investigation on Speech Recognition Accuracy via Sphinx Toolkits (Zealouk et al)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">NLP</p>
-    <p class="container-item">Robot Operation via Natural Voice Control (Lee et al)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">NLP</p>
-    <p class="container-item">Voice Call Analytics Using NLP (VS and Kumar)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">Deep Residual Learning for Image Recognition (He et al)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">Learning with Mixtures of Trees (Meila and Jordan)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">Approximating discrete probability distributions with dependence trees (Chow and Liu)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">NLP</p>
-    <p class="container-item">Speech and Language Processing 3rd ed. (Jurafsky and Martin)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">NLP</p>
-    <p class="container-item">An Alignment-based Approach to Text Segmentation Similarity Scoring (Diaz and Ouyang)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Quantum ML</p>
-    <p class="container-item">Challenges and Opportunities in Quantum Machine Learning (Cerezo et al.)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML + Dist. Sys.</p>
-    <p class="container-item">Strategies and Principles of Distributed Machine Learning on Big Data (Xing et al.)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">Do Orcas Have Semantic Language? (Sandholm)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">Empirical Analysis of Predictive Algorithms for Collaborative Filtering (Breese et al.)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">CV</p>
-    <p class="container-item">Hybrid Images (Oliva et al.)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">AI</p>
-    <p class="container-item">Genetic Algorithms - Literature Review (Lambora et al.)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">AI</p>
-    <p class="container-item">Genetic Algorithms (Forrest)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">ML</p>
-    <p class="container-item">Spam Filtering with Naive Bayes (Metsis et al.)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Technology</p>
-    <p class="container-item">Self Tracking by Neff & Nafus</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Reinforcement Learning</p>
-    <p class="container-item">Data-driven control of COVID-19 in buildings: a reinforcement-learning approach</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">I have no idea</p>
-    <p class="container-item">Exploring the effects of gamification pedagogy on children’s reading</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Bioinformatics</p>
-    <p class="container-item">Introduction to Bioinformatics - Ramsden</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Networking</p>
-    <p class="container-item">All One Needs to Know about Metaverse</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Economics</p>
-    <p class="container-item">How to Motivate and Engage Generation Clash of Clans at Work?</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Economics?</p>
-    <p class="container-item">Understanding Currencies in Video Games: A Review</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Probability</p>
-    <p class="container-item">Optimal Strategy in “Guess Who?”: Beyond Binary Search</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Operating Systems</p>
-    <p class="container-item">Mixed Scheduling in a Hard Real-Time Environment (Liu & Layland)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Operating Systems</p>
-    <p class="container-item">Impossibility of Consensus with One Faulty Process (FLP paper)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">Measuring Overfitting in Convolutional Neural Networks using Adversarial Perturbations and Label Noise</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">Analyzing Machine Learning Models for Credit Scoring with XAI and Optimizing Investment Decisions</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Operating Systems</p>
-    <p class="container-item">Static Resource Allocation in a Distributed System (Lynch)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Operating Systems</p>
-    <p class="container-item">A New Solution of Dijkstra's Concurrent Programming Problem (Lamport Bakery Paper)</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Bioinformatics/Machine Learning</p>
-    <p class="container-item">ProteinNet: A standardized data set for ML models on proteins</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Operating Systems</p>
-    <p class="container-item">Analyzing Amdahl's Law in Multicore Era</p>
-  </div>
-  <div class="container left-align">
-    <p class="container-item padding">Machine Learning</p>
-    <p class="container-item">Understanding Neural Networks Through Deep Visualization</p>
-  </div>
+  <div id="readings"></div>
   
   <h2>Projects</h2>
   </br>
+  <div id="projects"></div>
   <div class="container left-align">
     <a class="container-item padding">Mirage 2</a>
     <p class="container-item">TBA</p>

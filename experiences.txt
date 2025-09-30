@@ -1,0 +1,7 @@
+Data Engineer @ Capital One|Part of the AutoNavigator Marketing Data Team. Primarily maintaining and modernizing data pipeline infra. Created pipelines for new Email campaigns and migrated various existing infra to modern platforms. Cyber Point-of-Contact and File Ingestion SME.
+Associate Software Engineer @ Capital One|Part of the AutoNavigator Marketing Data Team. Help build various data pipelines such as a Thompson Sampling feedback script. Also helping in a data visualizer project which processes data metrics related to AutoNavigator.
+Software Engineer Intern (again) @ Capital One|Constructed a knowledge graph in Stardog consolidating over 10 billion rows of data over 8 production databases, centralizing exploratory data analysis for machine learning and data correction across Bank, Account, and Data Science teams. In addition worked on downstream applications and testing frameworks utilizing the knowledge graph.
+Temporary TIP Director @ ACM UTD|Filled in for the Technical Interview Prep director role and helped a classroom of 24 students learn the ropes of swe interviews
+VP @ ACM UTD|Organized, Hosted, and Presented various events, workshops, and meetings. Some specific examples include HackUTD and Fall 2023 Kick-Off
+Software Engineer Intern @ Capital One|created angular/springboot/aws full-stack app to move auto-loan letter infrastructure from sql and on-the-fly queries.
+Undergraduate Researcher @ UNT|analyzed convolutional neural network sparsity and developed visualization and analytical tools for top tier ILSVRC models

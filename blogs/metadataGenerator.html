@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Blog Index Updater</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f3f4f6; 
+        }
+        /* Custom focus styles for better accessibility */
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #3b82f6;
+            border-color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-800">Blog Index JSON Updater</h1>
+            <p class="mt-2 text-gray-600">Fill out the form to add a new entry to your blog index JSON.</p>
+        </div>
+
+        <!-- Form for new blog entry -->
+        <form id="blog-form" class="mt-8 space-y-6">
+            <div>
+                <label for="filename" class="block text-sm font-medium text-gray-700">Filename with extensions (eg. my-post.pdf/.html/etc)</label>
+                <input type="text" name="filename" id="filename" required class="form-input mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                <input type="text" name="title" id="title" required class="form-input mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+
+            <div>
+                <label for="tags" class="block text-sm font-medium text-gray-700">Tags (comma-separated)</label>
+                <input type="text" name="tags" id="tags" required class="form-input mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+
+            <div>
+                <label for="published" class="block text-sm font-medium text-gray-700">Published Date</label>
+                <input type="text" name="published" id="published" required class="form-input mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Add to JSON
+            </button>
+        </form>
+
+        <!-- Section to display the output -->
+        <div id="output-section" class="hidden mt-10">
+            <h2 class="text-2xl font-bold text-gray-800 text-center">Updated JSON</h2>
+            <div class="relative mt-4">
+                <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto"><code id="json-output" class="language-json"></code></pre>
+                <button id="copy-button" class="absolute top-2 right-2 bg-gray-600 text-white px-3 py-1 rounded-md text-sm hover:bg-gray-500">Copy</button>
+            </div>
+            <p id="copy-success" class="text-green-600 text-center mt-2 font-medium hidden">Copied to clipboard!</p>
+        </div>
+    </div>
+
+    <script>
+        const blogForm = document.getElementById('blog-form');
+        const outputSection = document.getElementById('output-section');
+        const jsonOutput = document.getElementById('json-output');
+        const copyButton = document.getElementById('copy-button');
+        const copySuccess = document.getElementById('copy-success');
+
+        // This will hold our data once it's fetched from the JSON file.
+        let blogData = {};
+
+        blogForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Ensure blogData has been loaded before trying to modify it
+            if (!blogData.blogs) {
+                alert("Error: Initial blog data not loaded. Please check the console for errors.");
+                return;
+            }
+
+            const formData = new FormData(blogForm);
+            const filename = formData.get('filename');
+            const title = formData.get('title');
+            // Split tags by comma, trim whitespace, and filter out any empty strings
+            const tags = formData.get('tags').split(',').map(tag => tag.trim()).filter(tag => tag);
+            const published = formData.get('published');
+
+            const newBlogEntry = {
+                filename,
+                title,
+                tags,
+                published
+            };
+
+            // Add the new entry to our data object
+            blogData.blogs.push(newBlogEntry);
+
+            // Pretty-print the updated JSON string and display it
+            const updatedJsonString = JSON.stringify(blogData, null, 4); // Indent with 4 spaces
+            jsonOutput.textContent = updatedJsonString;
+            outputSection.classList.remove('hidden');
+
+            // Reset the form for the next entry
+            blogForm.reset();
+            setDefaultDate(); // Reset the date to today
+        });
+
+        copyButton.addEventListener('click', () => {
+            const textToCopy = jsonOutput.textContent;
+
+            // Use a temporary textarea to securely copy to clipboard
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            // Make the textarea invisible and out of the way
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                copySuccess.classList.remove('hidden');
+                // Hide the success message after 2 seconds
+                setTimeout(() => {
+                    copySuccess.classList.add('hidden');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                alert('Oops, unable to copy');
+            }
+
+            document.body.removeChild(textArea);
+        });
+        
+        // Helper function to set the date input to today's date
+        function setDefaultDate() {
+            const date = new Date();
+            const year = date.getFullYear();
+            // Pad month and day with a leading zero if needed
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            document.getElementById('published').value = `${month}/${day}/${year}`;
+        }
+
+        /**
+         * Initializes the application by fetching the initial JSON data
+         * and setting up the form.
+         */
+        async function initializeApp() {
+            try {
+                const response = await fetch('metadata.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                blogData = await response.json();
+                console.log("Successfully loaded data from metadata.json");
+            } catch (error) {
+                console.error("Could not load 'metadata.json':", error);
+                // If the file can't be loaded, start with an empty array so the tool doesn't break.
+                blogData = { "blogs": [] };
+                alert("Warning: Could not load 'metadata.json'. Starting with an empty list. Check the console for details.");
+            }
+            // Set the default date after data has been fetched (or failed)
+            setDefaultDate();
+        }
+        // Run the initialization function when the page content has loaded
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+
+</body>
+</html>
+
