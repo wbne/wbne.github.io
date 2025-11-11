@@ -26,6 +26,18 @@
                 "osrs"
             ],
             "published": "11/02/2025"
+        },
+        {
+            "filename": "operation_r3.pdf",
+            "title": "Operation R3: Ratratrat33 Requires Riches",
+            "tags": [
+                "osrs",
+                "frontend",
+                "api",
+                "cloudflare",
+                "db"
+            ],
+            "published": "11/11/2025"
         }
     ]
 }
