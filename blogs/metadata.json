@@ -84,6 +84,17 @@
                 "girl-dinner"
             ],
             "published": "12/17/2025"
+        },
+        {
+            "filename": "uiuc_retrospective.html",
+            "title": "UIUC Master's in CS Retrospective",
+            "tags": [
+                "uiuc",
+                "mcs",
+                "grad-school",
+                "suffering"
+            ],
+            "published": "12/26/2025"
         }
     ]
 }
