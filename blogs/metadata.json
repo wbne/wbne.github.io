@@ -129,6 +129,17 @@
                 "gamerge"
             ],
             "published": "02/01/2026"
+        },
+        {
+            "filename": "book_review_dg.pdf",
+            "title": "Reviewing Data Governance by John Ladley",
+            "tags": [
+                "data-governance",
+                "book",
+                "reading",
+                "literate"
+            ],
+            "published": "02/09/2026"
         }
     ]
 }
