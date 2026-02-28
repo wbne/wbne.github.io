@@ -150,6 +150,17 @@
                 "nerdge"
             ],
             "published": "02/18/2026"
+        },
+        {
+            "filename": "book_review_muscle_ladder.pdf",
+            "title": "Book Review: Muscle Ladder",
+            "tags": [
+                "book",
+                "reading",
+                "literate",
+                "muscle-mommy-doko"
+            ],
+            "published": "02/27/2026"
         }
     ]
 }
