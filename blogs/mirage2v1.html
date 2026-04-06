@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>An Introduction to mirage2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f5f5;
+            color: #000000;
+            padding: 72pt 72pt 72pt 10vw;
+            max-width: 800px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 26pt;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 20pt;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 11pt;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #434343;
+            font-style: italic;
+            font-size: 10pt;
+            margin-bottom: 20px;
+        }
+
+        .caption {
+            color: #434343;
+            font-style: italic;
+            font-size: 10pt;
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        ul, ol {
+            font-size: 11pt;
+            margin-bottom: 20px;
+            padding-left: 40px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .indent {
+            font-size: 9pt;
+            margin-top: 8px;
+            list-style-type: circle;
+        }
+
+        .highlight-green {
+            color: #188038;
+            font-family: "Arial", sans-serif;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .image-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .image-row img {
+            margin-bottom: 0;
+        }
+
+        iframe {
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>An Introduction to mirage2</h1>
+    
+    <img alt="" src="mirage2v1_images/image1.png" style="width: 624px;">
+    <p class="caption">The static version of my current PNGTuber application</p>
+
+    <p>Some of you may have noticed it’s been about 18 days since my last blogpost and I have a pretty good reason for that (kind of). Throughout the past ~4 years I’ve been slowly ideating and coding on a custom PNG based application that essentially serves as an objectively worse version of Live2D - a popular tool that can be used to generate Virtual Avatars for streaming. (Yes I know Live2D is used elsewhere ( ͡° ͜ʖ ͡°) ).</p>
+
+    <div class="image-row">
+        <img alt="" src="mirage2v1_images/image3.gif" style="width: 176px;">
+        <img alt="" src="mirage2v1_images/image4.gif" style="width: 192px;">
+        <img alt="" src="mirage2v1_images/image5.gif" style="width: 195px;">
+    </div>
+
+    <p>While I usually only work on this project when I have motivation (and no other distractions) I decided mid-March that I’d start to push for a 1.0 version which is defined by the following criteria:</p>
+    
+    <ol>
+        <li>A PNG character can show up on my screen</li>
+        <li>Given audio input it can express the associated emotion</li>
+        <li>It must NOT use any paid services</li>
+        <li>Performance-wise it must offer near real-time reactions</li>
+    </ol>
+
+    <p>At that point I had a framework that I was confident would be enough to satisfy my 9 day blog cycle but unfortunately things (video games) got in the way. But before we get to the result of 18 days worth of procrastinating let’s start from the beginning of this story - the original mirage.</p>
+
+    <h2>Mirage 1</h2>
+    
+    <p>Quite frankly I’m not sure if any images exist (code or final product) but if I do find anything it’ll be placed below:</p>
+    
+    <img src="./mirage2v1_images/mirage_mvp.gif" style="width: 535px;" alt="Mirage MVP Demo">
+    <p class="caption">I did end up finding a demo from October 2023</p>
+
+    <p>Unsurprisingly the motivation struck from a combination of watching streams from Hololive talents and a friend sending some papers regarding real-time emotions in the VTuber (Virtual Avatar Youtuber) space. With the near unlimited time I had in university I decided to try creating an easier version of the VTuber software Live2D - a PNGTuber application. On a surface level it’s the most primitive form of a VTuber since you’re basically just a relatively static image placed in the corner of your stream.</p>
+
+    <p>Since the concept was relatively simple I was able to get a simple JavaFX application that reacted based on the noise but I wanted to go a little further and add emotions to my model. During my initial research I discovered some researchers at Carnegie Mellon University have created a Java package SPHINX that converts audio input to text via Reinforcement Learning and CNNs. Since I already had the basic app setup it was easy to wire up this package to my existing app but I quickly ran into two major problems. The easier problem to solve was the accuracy of the transcription since I could always provide custom training files and perform a pseudo-transfer learning update. The much harder problem was that there were no performative (and free) Java sentiment analysis models since the thought of using Java in ML would probably cause any researcher to combust violently. But before I could even search the dark depths of Google’s page 2 results I took a step back and evaluated my current PNGTuber app:</p>
+
+    <ul>
+        <li>While it does technically work as-is the general speed of SPHINX left me unimpressed</li>
+        <li>SPHINX was also a huge memory sink and I quickly hit my laptop’s cap through the duo of Windows 11 and Java which would immediately disqualify any additional games from even launching</li>
+        <li>I was acutely aware of the limitations Java brought - mainly in the lack of model availability</li>
+    </ul>
+
+    <p>With those 3 major blows I decided to shelve the project and let it simmer in my head while I went on with my uni days.</p>
+
+    <h2>Mirage 2 (circa 2024)</h2>
+    
+    <p>Once I graduated university I found myself with even more time on my hands and I quickly realized it was the perfect opportunity to give this PNGTuber idea another whirl. This time I plotted out most of the architecture with the intention of using a transcription process and a sentiment analysis process to give my PNG blob some pizzazz. Soon after I found myself at the same step as mirage1 - a barebones PNGTuber model that could respond to voice. However the buzzkill wasn’t anything specific - I just kinda lost steam as my j*b start date started approaching. While I did slowly chip at the project whenever I got inspiration it was safe to say that it was basically dormant.</p>
+
+    <h2>Mirage2 (circa 2026)</h2>
+    
+    <p>If the title wasn’t obvious then I did in fact complete - in my eyes - the version 1.0 of Mirage2 recently (today at 2am) based on the work I’ve previously done in 2024. So without further ado, let’s start talking about the nitty-gritty of v1.0!</p>
+
+    <img alt="" src="mirage2v1_images/image2.png" style="width: 366px; margin: 0 auto;">
+    <p class="caption">Some notes I had written during March 2026</p>
+
+    <p>The language I picked was vanilla Javascript 🙂. Why? Unlike with my usage of Java in Mirage 1 there are some technical reasons for vanilla JS:</p>
+    
+    <ul>
+        <li>Minimal bloat from React/Angular/Solid/Svelte/Lit</li>
+        <li>Minimal learning curve required for implementing features</li>
+        <li>Technically the most performative "framework" out of the bunch (Solid is taking its like 3% performance hit and seething)</li>
+        <li>Forces me to learn browser features and behaviors with minimal abstractions</li>
+        <li>Minimal setup required during development and deployment</li>
+    </ul>
+
+    <p>And with the project in JS I naturally chose to have it run in the browser and by doing so the app could access some nice additional features:</p>
+    
+    <ul>
+        <li>ML models compiled into Web Assembly (WASM) for better performance</li>
+        <ul class="indent">
+            <li>While I know most of the readers here either don’t care about programming or don’t care about front-end I just wanna throw shade at all the Rust-pilled chuds who watched their runtimes explode horrifically when trying to shove Rust WASM into everything…</li>
+        </ul>
+        <li>Web Workers</li>
+        <li>Picture-in-Picture</li>
+        <li>Shared Memory (that like weird passing of memory access between workers)</li>
+        <li>Event bubbling/cascading</li>
+        <li>Custom HTML objects including events, tags, and modules</li>
+        <li>Really good debugging (via the developer console)</li>
+    </ul>
+
+    <p>At a high level here are the components in mirage2 and their general purpose:</p>
+    
+    <ul>
+        <li>Main event loop which will reside in the main browser thread and handle the transferring of messages between various components</li>
+        <li>Audio Transcriber takes in audio input and emits an event containing the transcribed text</li>
+        <li>Speech detector which simply checks the volume of the input to save on processing power</li>
+        <li>Text Analyzer which takes in text and emits the predicted emotion as another event.</li>
+        <li>Model which houses the PNG avatar along with all the logic to ingest events and react accordingly</li>
+        <li>Miscellaneous components that handle logging and debugging</li>
+    </ul>
+
+    <p>From the components and the general features I’ve talked about you can kind of see how the entire app works from a user perspective:</p>
+    
+    <ol>
+        <li>Pop the avatar out into its own window via Picture-in-Picture</li>
+        <li>Once the app gets loud enough audio input it writes the data into a Float32 byte array</li>
+        <li>1 second later and the array’s read/write access is moved to the Audio Transcribing Web Worker</li>
+        <li>Since the Web Worker has loaded its HuggingFace model in a separate thread on app launch it’s able to immediately call for an inference on that same separate thread and returns the result back to the main thread</li>
+        <li>The main thread realizes we’re talking and updates the model to have a speech bubble for viewers to know our PNG avatar is "talking"</li>
+        <li>The main thread also picks up the transcribed text and sends it to the Sentiment Analyzing Web Worker via a simpler post method since the data is much smaller</li>
+        <li>Similarly to the transcriber, our Sentiment Analysis Web Worker has its dedicated thread which allows it to run all of its magic without interrupting our main thread/process. Once again the final result is bounced to the main process</li>
+        <li>With the sentiment our main process now tells the PNG avatar to accurately reflect the new emotion.</li>
+        <li>Luckily since our main thread is relatively free our model can update its state at a stable 60fps and with the V8 engine’s focus on optimizing canvas paint steps we’re able to immediately reflect the talking and emotion changes with minimal delay</li>
+    </ol>
+
+    <ul>
+        <li class="indent" style="list-style-type: none;">Specifically we have two separate logic flows for this - one to just update the eyes in the event of an emotion change and one to have our model’s mouth open</li>
+        <li class="indent" style="list-style-type: none;">The speech bubble that pops up is handled separately and is mostly to keep the PNG avatars more flexible - it’s hard to imagine a rock with a mouth</li>
+        <li class="indent" style="list-style-type: none;">Under the hood the eyes, mouth, and speech bubble are 3 different canvas layers with the main body and background being separate static canvas layers</li>
+    </ul>
+
+    <p>And if you’re curious - here’s what all of this looks like on the screen!</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/pYm5bNw9oH8?si=wfts3ksFSsfosmGc" title="YouTube video player" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <p>So what’s next?</p>
+    
+    <ol>
+        <li>Lowering memory usage for the sentiment model <span class="highlight-green">tanaos-emotion-detection-v1</span> since right now it’s eating up like 3GB-4GB of RAM…</li>
+        <li>Getting better assets for the PNG avatar since I created most of the assets in MS Paint</li>
+        <li>Overhauling the log panel and debugging panel since they were mostly used during the 2024 iteration of Mirage2 and are probably hazards to the stability of my app as-is</li>
+    </ol>
+
+    <p>These are just the obvious tasks I could work on ASAP but for now - I’ll play around with my PNG avatars and become a master of Herblore by bankstanding.</p>
+
+</body>
+</html>

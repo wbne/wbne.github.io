@@ -173,6 +173,17 @@
                 "-17hpironchad"
             ],
             "published": "03/17/2026"
+        },
+        {
+            "filename": "mirage2v1.html",
+            "title": "An Introduction to mirage2",
+            "tags": [
+                "nerdge",
+                "gigi",
+                "vtuber",
+                "js"
+            ],
+            "published": "04/05/2026"
         }
     ]
 }
