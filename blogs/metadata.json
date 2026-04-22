@@ -196,6 +196,18 @@
                 "language"
             ],
             "published": "04/12/2026"
+        },
+        {
+            "filename": "an_awesome_austin_adventure.pdf",
+            "title": "An Awesome Austin Adventure",
+            "tags": [
+                "chud",
+                "food",
+                "austin",
+                "driving",
+                "twice"
+            ],
+            "published": "04/21/2026"
         }
     ]
 }
