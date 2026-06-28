@@ -286,6 +286,18 @@
                 "dgjimm2"
             ],
             "published": "06/04/2026"
+        },
+        {
+            "filename": "maple_big_three.pdf",
+            "title": "RNG in Maplestory",
+            "tags": [
+                "maplestory",
+                "nerdge",
+                "math",
+                "lore",
+                "audit"
+            ],
+            "published": "06/28/2026"
         }
     ]
 }
