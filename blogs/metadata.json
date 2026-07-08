@@ -298,6 +298,17 @@
                 "audit"
             ],
             "published": "06/28/2026"
+        },
+        {
+            "filename": "yet_another_osrs_post.pdf",
+            "title": "Yet Another OSRS Post",
+            "tags": [
+                "osrs",
+                "nerdge",
+                "declaration",
+                "greed"
+            ],
+            "published": "07/07/2026"
         }
     ]
 }
