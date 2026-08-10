@@ -1,0 +1,788 @@
+<html>
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <style type="text/css">
+        @import url(https://themes.googleusercontent.com/fonts/css?kit=I6bCDJCuHPz9d1brYEIygQ);
+
+        img {
+            max-width: 468pt;
+        }
+
+        /* Base state: heavily blurred and grayscale */
+        .img-censor {
+            filter: blur(8px);
+            opacity: 0.85;
+            transition: filter 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Active/Click state: fully revealed while holding the mouse click down */
+        /* Class added dynamically via JavaScript */
+        .img-censor.revealed {
+            filter: blur(0px);
+            opacity: 1;
+        }
+
+        ul.lst-kix_f4sollnwql4w-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_f4sollnwql4w-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_f4sollnwql4w-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_f4sollnwql4w-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_f4sollnwql4w-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_f4sollnwql4w-6 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-4.start {
+            counter-reset: lst-ctn-kix_up4pzjue1r40-4 0
+        }
+
+        ul.lst-kix_f4sollnwql4w-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_f4sollnwql4w-4 {
+            list-style-type: none
+        }
+
+        .lst-kix_up4pzjue1r40-1>li {
+            counter-increment: lst-ctn-kix_up4pzjue1r40-1
+        }
+
+        .lst-kix_up4pzjue1r40-8>li:before {
+            content: "" counter(lst-ctn-kix_up4pzjue1r40-8, lower-roman) ". "
+        }
+
+        .lst-kix_up4pzjue1r40-7>li:before {
+            content: "" counter(lst-ctn-kix_up4pzjue1r40-7, lower-latin) ". "
+        }
+
+        ul.lst-kix_f4sollnwql4w-8 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-2 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-1 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-0 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-1.start {
+            counter-reset: lst-ctn-kix_up4pzjue1r40-1 0
+        }
+
+        ol.lst-kix_up4pzjue1r40-6 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-8.start {
+            counter-reset: lst-ctn-kix_up4pzjue1r40-8 0
+        }
+
+        ol.lst-kix_up4pzjue1r40-5 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-4 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-3 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-8 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-7 {
+            list-style-type: none
+        }
+
+        .lst-kix_up4pzjue1r40-7>li {
+            counter-increment: lst-ctn-kix_up4pzjue1r40-7
+        }
+
+        .lst-kix_kkjs7tjnlqus-4>li:before {
+            content: "-  "
+        }
+
+        ul.lst-kix_kkjs7tjnlqus-4 {
+            list-style-type: none
+        }
+
+        ol.lst-kix_up4pzjue1r40-5.start {
+            counter-reset: lst-ctn-kix_up4pzjue1r40-5 0
+        }
+
+        ul.lst-kix_kkjs7tjnlqus-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kkjs7tjnlqus-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kkjs7tjnlqus-7 {
+            list-style-type: none
+        }
+
+        .lst-kix_kkjs7tjnlqus-6>li:before {
+            content: "-  "
+        }
+
+        ul.lst-kix_kkjs7tjnlqus-8 {
+            list-style-type: none
+        }
+
+        .lst-kix_kkjs7tjnlqus-5>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_kkjs7tjnlqus-8>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_up4pzjue1r40-0>li:before {
+            content: "" counter(lst-ctn-kix_up4pzjue1r40-0, decimal) ". "
+        }
+
+        .lst-kix_up4pzjue1r40-1>li:before {
+            content: "" counter(lst-ctn-kix_up4pzjue1r40-1, lower-latin) ". "
+        }
+
+        .lst-kix_up4pzjue1r40-0>li {
+            counter-increment: lst-ctn-kix_up4pzjue1r40-0
+        }
+
+        .lst-kix_kkjs7tjnlqus-7>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_up4pzjue1r40-3>li {
+            counter-increment: lst-ctn-kix_up4pzjue1r40-3
+        }
+
+        ol.lst-kix_up4pzjue1r40-2.start {
+            counter-reset: lst-ctn-kix_up4pzjue1r40-2 0
+        }
+
+        .lst-kix_up4pzjue1r40-4>li:before {
+            content: "" counter(lst-ctn-kix_up4pzjue1r40-4, lower-latin) ". "
+        }
+
+        .lst-kix_up4pzjue1r40-3>li:before {
+            content: "" counter(lst-ctn-kix_up4pzjue1r40-3, decimal) ". "
+        }
+
+        .lst-kix_up4pzjue1r40-5>li:before {
+            content: "" counter(lst-ctn-kix_up4pzjue1r40-5, lower-roman) ". "
+        }
+
+        .lst-kix_up4pzjue1r40-2>li:before {
+            content: "" counter(lst-ctn-kix_up4pzjue1r40-2, lower-roman) ". "
+        }
+
+        .lst-kix_up4pzjue1r40-6>li:before {
+            content: "" counter(lst-ctn-kix_up4pzjue1r40-6, decimal) ". "
+        }
+
+        .lst-kix_up4pzjue1r40-6>li {
+            counter-increment: lst-ctn-kix_up4pzjue1r40-6
+        }
+
+        .lst-kix_f4sollnwql4w-0>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_f4sollnwql4w-1>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_f4sollnwql4w-3>li:before {
+            content: "-  "
+        }
+
+        ul.lst-kix_kkjs7tjnlqus-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kkjs7tjnlqus-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kkjs7tjnlqus-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_f4sollnwql4w-2>li:before {
+            content: "-  "
+        }
+
+        ul.lst-kix_kkjs7tjnlqus-3 {
+            list-style-type: none
+        }
+
+        .lst-kix_up4pzjue1r40-4>li {
+            counter-increment: lst-ctn-kix_up4pzjue1r40-4
+        }
+
+        .lst-kix_sezlpomlxp14-4>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_sezlpomlxp14-5>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_f4sollnwql4w-5>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_f4sollnwql4w-7>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_sezlpomlxp14-2>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_sezlpomlxp14-6>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_f4sollnwql4w-4>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_f4sollnwql4w-8>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_sezlpomlxp14-8>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_sezlpomlxp14-0>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_sezlpomlxp14-1>li:before {
+            content: "-  "
+        }
+
+        ol.lst-kix_up4pzjue1r40-6.start {
+            counter-reset: lst-ctn-kix_up4pzjue1r40-6 0
+        }
+
+        .lst-kix_sezlpomlxp14-7>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_f4sollnwql4w-6>li:before {
+            content: "-  "
+        }
+
+        ul.lst-kix_sezlpomlxp14-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_sezlpomlxp14-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_sezlpomlxp14-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_sezlpomlxp14-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_sezlpomlxp14-3>li:before {
+            content: "-  "
+        }
+
+        ol.lst-kix_up4pzjue1r40-3.start {
+            counter-reset: lst-ctn-kix_up4pzjue1r40-3 0
+        }
+
+        .lst-kix_kkjs7tjnlqus-3>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_kkjs7tjnlqus-2>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_kkjs7tjnlqus-1>li:before {
+            content: "-  "
+        }
+
+        ol.lst-kix_up4pzjue1r40-0.start {
+            counter-reset: lst-ctn-kix_up4pzjue1r40-0 0
+        }
+
+        .lst-kix_kkjs7tjnlqus-0>li:before {
+            content: "-  "
+        }
+
+        .lst-kix_up4pzjue1r40-8>li {
+            counter-increment: lst-ctn-kix_up4pzjue1r40-8
+        }
+
+        ul.lst-kix_sezlpomlxp14-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_sezlpomlxp14-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_sezlpomlxp14-4 {
+            list-style-type: none
+        }
+
+        li.li-bullet-0:before {
+            margin-left: -18pt;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 18pt
+        }
+
+        ul.lst-kix_sezlpomlxp14-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_sezlpomlxp14-6 {
+            list-style-type: none
+        }
+
+        .lst-kix_up4pzjue1r40-2>li {
+            counter-increment: lst-ctn-kix_up4pzjue1r40-2
+        }
+
+        .lst-kix_up4pzjue1r40-5>li {
+            counter-increment: lst-ctn-kix_up4pzjue1r40-5
+        }
+
+        ol.lst-kix_up4pzjue1r40-7.start {
+            counter-reset: lst-ctn-kix_up4pzjue1r40-7 0
+        }
+
+        ol {
+            margin: 0;
+            padding: 0
+        }
+
+        table td,
+        table th {
+            padding: 0
+        }
+
+        .c8 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 20pt;
+            font-family: "Lexend";
+            font-style: normal
+        }
+
+        .c11 {
+            padding-top: 0pt;
+            padding-bottom: 3pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c1 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Lexend";
+            font-style: normal
+        }
+
+        .c9 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Lexend";
+            font-style: normal
+        }
+
+        .c0 {
+            padding-top: 20pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c4 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: center
+        }
+
+        .c2 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c12 {
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-family: "Lexend"
+        }
+
+        .c7 {
+            color: #434343;
+            font-size: 9pt;
+            font-style: italic
+        }
+
+        .c10 {
+            background-color: #ffffff;
+            max-width: 468pt;
+            padding: 72pt 72pt 72pt 72pt
+        }
+
+        .c3 {
+            margin-left: 36pt;
+            padding-left: 0pt
+        }
+
+        .c6 {
+            padding: 0;
+            margin: 0
+        }
+
+        .c5 {
+            height: 11pt
+        }
+
+        .title {
+            padding-top: 0pt;
+            color: #000000;
+            font-size: 26pt;
+            padding-bottom: 3pt;
+            font-family: "Lexend";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .subtitle {
+            padding-top: 0pt;
+            color: #434343;
+            font-size: 11pt;
+            padding-bottom: 0pt;
+            font-family: "Lexend";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: center
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Lexend"
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Lexend"
+        }
+
+        h1 {
+            padding-top: 20pt;
+            color: #000000;
+            font-size: 20pt;
+            padding-bottom: 6pt;
+            font-family: "Lexend";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-size: 16pt;
+            padding-bottom: 6pt;
+            font-family: "Lexend";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h3 {
+            padding-top: 16pt;
+            color: #434343;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Lexend";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h4 {
+            padding-top: 14pt;
+            color: #666666;
+            font-size: 12pt;
+            padding-bottom: 4pt;
+            font-family: "Lexend";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h5 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Lexend";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h6 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Lexend";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body class="c10 doc-content">
+    <p class="c11 title" id="h.1bj25wvr85yy"><span class="c9">Gambling in Hololive Dreams</span></p>
+    <p class="c2"><img class="img-censor" src="./gambling-in-holodori/img01.png" alt="story diary thingy"></p>
+    <p class="c4"><span class="c7 c12">I&rsquo;m caught up with the story now!</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><span class="c1">So while I did give a high level overview of some gambling activities in
+            Cover&rsquo;s new rhythm game Hololive Dreams (Holodori), I wasn&rsquo;t far enough in the story to actually
+            participate in these mini-games. A few days later and I&rsquo;ve been able to get thoroughly obliterated in
+            every possible game so let&rsquo;s get started!!</span></p>
+    <h1 class="c0" id="h.74f99ivsunuo"><span class="c8">Gacha Game Genre</span></h1>
+    <p class="c2"><span class="c1">While Genshin Impact wasn&rsquo;t the first game to introduce gacha mechanics to the
+            West, it certainly is the most well-known example. For those who don&rsquo;t know, the primary way of
+            acquiring new (and generally meta) units in your team involves trading premium currency for lottery tickets.
+            Each lottery ticket has a set chance of acquiring each character with an inverse proportion to their
+            strength. Due to the innate variability of a 1%-2% chance of getting the desired character, some games
+            introduce a mechanic called pity which provides a hard cap on how unlucky a person can be (eg. the desired
+            character always appears after 100 tickets). Since the focus isn&rsquo;t solely focused on the gacha genre
+            I&rsquo;ll just provide a non-exhaustive list of other ways companies can incentivize more gambling:</span>
+    </p>
+    <ul class="c6 lst-kix_sezlpomlxp14-0 start">
+        <li class="c2 c3 li-bullet-0"><span class="c1">Weapon/Artifact Banners to enhance units</span></li>
+        <li class="c2 c3 li-bullet-0"><span class="c1">Duplicate system rewarding multiple copies of a unit</span></li>
+        <li class="c2 c3 li-bullet-0"><span class="c1">Unique lottery ticket items to control which controls unit
+                accessibility</span></li>
+    </ul>
+    <p class="c2"><span class="c1">So how can you introduce these gacha mechanics into a rhythm game? Well, Holodori
+            doesn&rsquo;t have to do anything new since this question was already answered in Project Sekai (Hatsune
+            Miku: Colorful Stage). Specifically the player fields 5 units (the 1st being called the
+            &ldquo;Leader&rdquo;) which each have abilities that can enhance a total score of the play, provide health
+            to help struggling players, and convert inaccurate note hits into &ldquo;Perfect&rdquo; notes which
+            maintains the combo streak.</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><span class="c1">Holodori builds upon that core system by adding elements, granular stats, and
+            emphasis on the Leader role. &nbsp;which gives the developers a few more levers they can pull before
+            introducing power creep. Elements are the simplest factor as they are broken down into &ldquo;Cute&rdquo;,
+            &ldquo;Calm&rdquo;, and &ldquo;Happy&rdquo; types denoted by the Red Heart, Green Leaf, and Yellow Sun
+            respectively. Then we have the stats of a character which are Performance, Sense, and Talent. Lastly we have
+            the redesigned Leader role which is shifted from the first slot of a team into a dedicated position with
+            their own powerscaling mechanics - Outfits and Skill Trees. </span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><span class="c1">Elements serve no direct purpose to characters and are just labels for other effects
+            to rely on as conditions (eg. activate when 2 Happy members are fielded). The 3 stats are a lot more direct
+            as their sum represents a base member&rsquo;s strength. In general a character leans into one of the 3 stats
+            so % increases become much more effective on properly crafted teams (eg. a Talent-focused team enjoys a 130%
+            Talent boost over a 150% Sense boost). Lastly, the Leader&rsquo;s outfit and skill tree. Since the skill
+            tree is a deterministic process I&rsquo;ll focus on the outfit which serves as a team-wide passive buff.
+            While the basic outfit gives a flat 15% All Stat bonus, 4* and 5* units unlock new unique outfits for their
+            respective member - for example getting a 5* Yuzuki Choco unlocks a new Outfit which gives All Stat and
+            Final Score bonuses if 2 Happy members are fielded.</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><img class="img-censor" src="./gambling-in-holodori/img02.png" alt="Choco Outfit and effect"></p>
+    <p class="c4"><span class="c7">My current team w/ Yuzuki Choco as the Leader</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><span class="c1">These 3 new avenues of power give developers pretty easy ways to incentivize the
+            number munchers - introduce a new niche unit, powercreep an existing unit, or release a new outfit. Of
+            course developers can introduce new characters which enhance existing units. An example of my team is Summer
+            Noel which is heavily reliant on being fielded with another member from her generation (Pekora, Flare,
+            Marine) and with my current roster this means Flare&rsquo;s base 5* member becomes best-in-slot (replacing
+            Hakos Baelz)</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><img src="./gambling-in-holodori/img03.png" alt="My team"></p>
+    <p class="c4"><span class="c7">On the left is my current team and I'd gain 8% score just from using Flare (the right team)</span>
+    </p>
+    <h1 class="c0" id="h.qp7z1o8zft43"><span class="c8">Events (&amp; associated banners)</span></h1>
+    <p class="c2"><span class="c1">Just to make sure players swipe for the latest and greatest units, gachas typically
+            host limited time events which are tailored for the newest units. &nbsp;An easy example is Nikke whose raids
+            always coincidentally get thrashed by the newest units (looking at the iron-weak core exposed CHUD being
+            released alongside Summer Cindy).</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><span class="c1">In rhythm games this incentive is (mostly) pushed from direct powercreep to the event
+            itself. Players will accumulate points from playing the game and the new units will provide a percent
+            increase if they&rsquo;re fielded (or just owned for the mini-games). Since these event rewards scale on
+            score rank, players who want to reach the next tier get pressured into either obtaining the event units or
+            playing more to compensate for the lack of bonuses. Of course if you don&rsquo;t really care about the
+            rewards then developers have to rely on new designs and character preferences to move the swiping
+            needle.</span></p>
+    <h1 class="c0" id="h.gk6cjtwijhy"><span class="c8">High Scores and Skill variability</span></h1>
+    <p class="c2"><img src="./gambling-in-holodori/img04.png" alt="Drop event"></p>
+    <p class="c4"><span class="c7">The current event (which is a LOT less scandalous)</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><span class="c1">So let&rsquo;s say you wanted to hit a high score for the current Holodori event
+            (which is currently a mini-event that ranks based on your top scores on 3 songs). Unlike combat games, there
+            isn&rsquo;t a crit mechanic so instead each unit has a chance to activate their skills. If this sounds like
+            it&rsquo;ll lead to RNG fishing then you&rsquo;re correct! I&rsquo;ve personally seen my score fluctuate by
+            over 10% just from skill activations and when a majority of the rankings are point based this variance is
+            tilting. Luckily there&rsquo;s tooling ready to optimize your team for specific maps but the fundamental
+            issue will always remain.</span></p>
+    <h1 class="c0" id="h.cceho5u4esxj"><span class="c8">Fall Guys</span></h1>
+    <p class="c2"><span class="c1">Once you&rsquo;ve finished Chapter 1 of Holodori&rsquo;s story you&rsquo;ll enter the
+            GAMBLING ZONE where the main currency becomes poker chips and its economy is semi-isolated from the main
+            world. In order to complete Chapter 2 you end up having to play all of the mini-games and obtain around ~30k
+            poker chips which is either a trivial task or literally pulling teeth depending on your gamer skills.</span>
+    </p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><img src="./gambling-in-holodori/img05.gif" alt="Fall Guys"></p>
+    <p class="c4"><span class="c7">From the Hololive Dreams website</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><span class="c1">So I think the mini-game is called something else but it&rsquo;s basically a
+            miniature version of Fall Guys where you run laps around an obstacle course and after the top half of
+            participants finish their lap the next round starts. The gambling part comes in as a combination of your
+            entry fee and your final ranking. With a base fee of 500 coins, you have to place 8/16 to gain any coins and
+            10/16 to not lose any. If you are cheeks at the game like me (bottom 4 gang) then you will frequently see
+            those 500 coins disappear. If you&rsquo;re feeling powerful then you can increase the entrance fee up to
+            2000 coins and just really hope to not place bottom 4 since the payout scales with your initial bet (eg.
+            betting 4x means your gains/losses are also quadrupled).</span></p>
+    <h1 class="c0" id="h.rdhi19n87hx0"><span class="c8">High &amp; Low</span></h1>
+    <p class="c2"><img src="./gambling-in-holodori/img06.png" alt="High &amp; Low"></p>
+    <p class="c4"><span class="c7">From the Hololive Dreams website</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><span class="c1">After giving Shiori 7500 coins you open up another way of acquiring chips and
+            it&rsquo;s so consistent that there&rsquo;s a 20k coin cap daily. If you want the TL;DR then it&rsquo;s
+            Video Poker with an additional doubling step afterwards. If you don&rsquo;t know what Video Poker is then
+            after paying the 50 coin entrance fee you are given a 5 card hand from the standard playing card deck (and 2
+            Jokers) and if you land a double-double/triple or better then you get 200 coins. From there you can enter
+            the second phase of the mini-game which is a simple coin flip. Given a card from the deck you have to decide
+            whether the next card will be higher or lower. If you win then your earnings double; lose and all of your
+            winnings vanish. </span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><img src="./gambling-in-holodori/img07.png" alt="High &amp; Low winning chart"></p>
+    <p class="c4"><span class="c7">High &amp; Low winning chart - if I hit the 0x I lose 50 coins</span></p>
+    <h1 class="c0" id="h.lk8uknp8so56"><span class="c8">Pokajan</span></h1>
+    <p class="c2"><span class="c1">Depending on which circles of Twitter you&rsquo;re in, there&rsquo;s a chance
+            you&rsquo;ve seen people talk about this mini-game and for good reason - it&rsquo;s Mahjong Soul with even
+            more Anime girls. The gameplay is quite a bit simpler but the same tactics apply - 4 players at the table,
+            point-max by playing sets of tiles, game&rsquo;s over when all tiles are gone or when a player goes
+            bankrupt. Some things which make Pokajan different include a random bonus tile which is set at the start of
+            a game and gives bonus points for each set made with that tile. If you&rsquo;re curious on just how strong
+            they are then here&rsquo;s a clip of the shortest Pokajan game ever recorded:</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><img src="./gambling-in-holodori/img08.gif" alt="AzKi obliterating a rando"></p>
+    <p class="c4"><span class="c7">This might be generational aura loss</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><span class="c1">Honestly this section should be longer but I am so bad at Pokajan that I stopped
+            playing this mini-game after I did the required games needed to complete Chapter 2 of the story. But for the
+            Mahjong heads it does seem to be the main attraction of the game since:</span></p>
+    <ol class="c6 lst-kix_up4pzjue1r40-0 start" start="1">
+        <li class="c2 c3 li-bullet-0"><span class="c1">It prints poker chips since the starting bet is 2k coins and your
+                earnings scale with how hard you&rsquo;ve point-maxxed</span></li>
+        <li class="c2 c3 li-bullet-0"><span class="c1">It mirrors Mahjong and people in Asia/SEA LOVE it</span></li>
+        <li class="c2 c3 li-bullet-0"><span class="c1">You actually get event points so in theory you could be rank 1
+                without every playing rhythm games - a JP player hit rank 5 just from Fall Guys</span></li>
+        <li class="c2 c3 li-bullet-0"><span class="c1">It&rsquo;s pretty easy getting 3 friends into a private lobby
+                versus the 15 required for Fall Guys</span></li>
+    </ol>
+    <h1 class="c0" id="h.ia12v674b3hr"><span class="c8">Final Thoughts</span></h1>
+    <p class="c2"><span class="c1">While the lobbies are popping off I am curious to see how they&rsquo;ll alleviate the
+            issue of dead mini-games as more are presumably going to be introduced. I personally think it&rsquo;d be
+            cool if instead of adding mini-games they replace existing mini-games in either a rotation system or a
+            temporary coat of paint. Regardless I will keep playing and watch all of my gacha pulls get me nothing, all
+            of my Pokajan games place me in 4th, and all of my skill activations magically disappear.</span></p>
+    <p class="c2 c5"><span class="c1"></span></p>
+    <p class="c2"><img src="./gambling-in-holodori/img09.png" alt="Choco ranking"></p>
+    <p class="c4"><span class="c7">Gotta maintain my top 100 Choco ranking!!!</span></p>
+</body>
+<script>
+    document.querySelectorAll('.img-censor').forEach(img => {
+        img.addEventListener('click', () => {
+            img.classList.toggle('revealed');
+        });
+    });
+</script>
+</html>
