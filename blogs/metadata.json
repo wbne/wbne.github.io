@@ -348,6 +348,21 @@
                 "legs"
             ],
             "published": "08/14/2026"
+        },
+        {
+            "filename": "attention_in_osrs.pdf",
+            "title": "Attention is All You Need (in OSRS)",
+            "tags": [
+                "osrs",
+                "nerdge",
+                "game-design",
+                "afk",
+                "3tick",
+                "ratratrat33",
+                "rat2ratcomms",
+                "does-anyone-read-these-tags"
+            ],
+            "published": "08/23/2026"
         }
     ]
 }
