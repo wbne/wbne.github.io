@@ -373,6 +373,15 @@
                 "thanks-for-reading"
             ],
             "published": "08/24/2026"
+        },
+        {
+            "filename": "periodic_tables_review.pdf",
+            "title": "Periodic Tales Review",
+            "tags": [
+                "chemistry",
+                "book-review"
+            ],
+            "published": "09/20/2026"
         }
     ]
 }
