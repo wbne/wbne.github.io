@@ -382,6 +382,20 @@
                 "book-review"
             ],
             "published": "09/20/2026"
+        },
+        {
+            "filename": "blogiversary.pdf",
+            "title": "1 Year Blog-iversary",
+            "tags": [
+                "osrs",
+                "nerdge",
+                "reading",
+                "blogs",
+                "oldge",
+                "unc",
+                "chunc"
+            ],
+            "published": "09/30/2026"
         }
     ]
 }
