@@ -396,6 +396,16 @@
                 "chunc"
             ],
             "published": "09/30/2026"
+        },
+        {
+            "filename": "blogified-chariot-formatted.html",
+            "title": "Upgrading My Blog",
+            "tags": [
+                "nerdge",
+                "front-end",
+                "workflow"
+            ],
+            "published": "11/10/2026"
         }
     ]
 }
