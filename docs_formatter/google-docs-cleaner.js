@@ -9,6 +9,7 @@
   const DROP_TAGS = new Set(['script', 'noscript', 'iframe', 'object', 'embed', 'applet', 'base', 'meta', 'link']);
   const VOID_TAGS = new Set(['area', 'br', 'col', 'hr', 'img', 'input', 'source', 'wbr']);
   const SAFE_URL_ATTRS = new Set(['href', 'src']);
+  const DOM_SELECTIONS = 'span,p,h1,h2,h3,h4,h5,h6,tr,td,th,img';
 
   function decodePath(path) {
     return path.replace(/\\/g, '/').split('/').reduce((parts, part) => {
@@ -64,6 +65,135 @@
     return ({ png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp', svg: 'image/svg+xml', avif: 'image/avif' })[ext] || 'application/octet-stream';
   }
 
+  const LAYOUT_STYLE_PROPERTIES = [
+    'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+    'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
+    'width', 'height', 'max-width', 'max-height',
+    'display', 'overflow', 'vertical-align', 'text-align',
+    'box-sizing', 'object-fit', 'border-radius'
+  ];
+
+  const BOX_STYLE_PROPERTIES = [
+    'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+    'margin-top', 'margin-right', 'margin-bottom', 'margin-left'
+  ];
+
+  function hasPreservedLayoutStyle(el) {
+    return LAYOUT_STYLE_PROPERTIES.some(
+      prop => el.style.getPropertyValue(prop)
+    );
+  }
+
+  function preserveComputedLayout(el, cs) {
+    const tag = el.tagName.toLowerCase();
+
+    // Preserve nonzero padding and margins from Google Docs classes.
+    for (const prop of BOX_STYLE_PROPERTIES) {
+      const value = cs.getPropertyValue(prop);
+      const amount = Number.parseFloat(value);
+
+      if (Number.isFinite(amount) && amount !== 0) {
+        el.style.setProperty(prop, value);
+      }
+    }
+
+    // Computed block widths are often just the available page width.
+    // Preserve dimensions only where they represent meaningful object sizing.
+    if (tag === 'img' || (tag === 'span' && cs.display !== 'inline')) {
+      for (const prop of ['width', 'height', 'max-width', 'max-height']) {
+        const value = cs.getPropertyValue(prop);
+        const amount = Number.parseFloat(value);
+
+        if (Number.isFinite(amount) && amount > 0 && value !== 'auto') {
+          el.style.setProperty(prop, value);
+        }
+      }
+    }
+
+    if (tag === 'span' && cs.display !== 'inline') {
+      el.style.setProperty('display', cs.display);
+    }
+
+    if (cs.overflow && cs.overflow !== 'visible') {
+      el.style.setProperty('overflow', cs.overflow);
+    }
+
+    if (cs.textAlign && !['left', 'start'].includes(cs.textAlign)) {
+      el.style.setProperty('text-align', cs.textAlign);
+    }
+
+    if (cs.verticalAlign && cs.verticalAlign !== 'baseline') {
+      el.style.setProperty('vertical-align', cs.verticalAlign);
+    }
+
+    if (tag === 'img') {
+      if (cs.boxSizing && cs.boxSizing !== 'content-box') {
+        el.style.setProperty('box-sizing', cs.boxSizing);
+      }
+      if (cs.objectFit && cs.objectFit !== 'fill') {
+        el.style.setProperty('object-fit', cs.objectFit);
+      }
+      if (cs.borderRadius && cs.borderRadius !== '0px') {
+        el.style.setProperty('border-radius', cs.borderRadius);
+      }
+    }
+  }
+
+  function cleanPreservedStyles(el) {
+    const preserved = new Map();
+
+    if (el.style.backgroundColor) {
+      preserved.set('background-color', el.style.backgroundColor);
+    }
+
+    for (const prop of LAYOUT_STYLE_PROPERTIES) {
+      const value = el.style.getPropertyValue(prop);
+      if (value) preserved.set(prop, value);
+    }
+
+    // Read all values before removing the original style attribute.
+    el.removeAttribute('style');
+
+    for (const [prop, value] of preserved) {
+      el.style.setProperty(prop, value);
+    }
+  }
+
+  function transferItalicLayout(source, wrapper, computedStyle) {
+    const transferProperties = [
+      ...BOX_STYLE_PROPERTIES,
+      'width', 'height', 'max-width', 'max-height',
+      'display', 'overflow', 'vertical-align', 'text-align',
+      'box-sizing', 'object-fit', 'border-radius'
+    ];
+
+    let hasVerticalMargin = false;
+
+    for (const property of transferProperties) {
+      const value = source.style.getPropertyValue(property);
+      if (!value) continue;
+
+      wrapper.style.setProperty(property, value);
+      source.style.removeProperty(property);
+
+      if (
+        (property === 'margin-top' || property === 'margin-bottom') &&
+        Number.parseFloat(value) !== 0
+      ) {
+        hasVerticalMargin = true;
+      }
+    }
+
+    // Vertical margins on an inline element have no layout effect.
+    // Make the semantic <em> wrapper an inline-block when necessary.
+    if (computedStyle.display !== 'inline') {
+      wrapper.style.display = computedStyle.display;
+      source.style.removeProperty('display');
+    } else if (hasVerticalMargin) {
+      wrapper.style.display = 'inline-block';
+    }
+  }
+
   function wrapContents(el, tag) {
     if (!el.childNodes.length) return null;
 
@@ -77,14 +207,22 @@
     return wrapper;
   }
 
+  
   function addSemanticFormatting(sourceDoc, styleDoc) {
-    const sourceEls = [...sourceDoc.body.querySelectorAll('span,p,tr,td,th')];
+    const sourceEls = [...sourceDoc.body.querySelectorAll(DOM_SELECTIONS)];
+
     for (let i = 0; i < sourceEls.length; i++) {
       const el = sourceEls[i];
       const styled = styleDoc.querySelector(`[data-gdc-index="${i}"]`);
+
       if (!styled || !el.parentNode) continue;
+
       const cs = styleDoc.defaultView.getComputedStyle(styled);
-      // Capture table backgrounds, but don't apply text formatting to table containers.
+
+      // Capture layout before removing Google Docs CSS.
+      preserveComputedLayout(el, cs);
+
+      // Preserve table backgrounds.
       if (el.matches('tr, td, th')) {
         const bg = cs.backgroundColor;
 
@@ -94,51 +232,79 @@
 
         continue;
       }
+
+      // Headings and images only need layout preservation.
+      if (!el.matches('span, p')) continue;
+
       const parent = styled.parentElement;
-      const ps = parent ? styleDoc.defaultView.getComputedStyle(parent) : null;
-      const weight = Number.parseInt(cs.fontWeight, 10) || (cs.fontWeight === 'bold' ? 700 : 400);
-      const parentWeight = ps ? (Number.parseInt(ps.fontWeight, 10) || (ps.fontWeight === 'bold' ? 700 : 400)) : 400;
-      const italic = cs.fontStyle === 'italic' && (!ps || ps.fontStyle !== 'italic');
+      const ps = parent
+        ? styleDoc.defaultView.getComputedStyle(parent)
+        : null;
+
+      const weight = Number.parseInt(cs.fontWeight, 10) ||
+        (cs.fontWeight === 'bold' ? 700 : 400);
+
+      const parentWeight = ps
+        ? Number.parseInt(ps.fontWeight, 10) ||
+          (ps.fontWeight === 'bold' ? 700 : 400)
+        : 400;
+
+      const italic = cs.fontStyle === 'italic' &&
+        (!ps || ps.fontStyle !== 'italic');
+
       const bold = weight >= 600 && parentWeight < 600;
+
       const deco = cs.textDecorationLine || cs.textDecoration || '';
-      const pdeco = ps ? (ps.textDecorationLine || ps.textDecoration || '') : '';
-      const underline = /underline/.test(deco) && !/underline/.test(pdeco);
-      const strike = /line-through/.test(deco) && !/line-through/.test(pdeco);
-      // Build outer-to-inner wrappers; source span itself is unwrapped later.
+      const pdeco = ps
+        ? ps.textDecorationLine || ps.textDecoration || ''
+        : '';
+
+      const underline = /underline/.test(deco) &&
+        !/underline/.test(pdeco);
+
+      const strike = /line-through/.test(deco) &&
+        !/line-through/.test(pdeco);
+
       const tags = [];
+
       if (bold) tags.push('strong');
       if (italic) tags.push('em');
       if (underline) tags.push('u');
       if (strike) tags.push('s');
-      const paddingValues = [
-        cs.paddingTop,
-        cs.paddingRight,
-        cs.paddingBottom,
-        cs.paddingLeft
-      ];
-
-      const hasPadding = paddingValues.some(value => parseFloat(value) > 0);
 
       for (const tag of tags.reverse()) {
         const wrapper = wrapContents(el, tag);
 
-        if (tag === 'em' && wrapper && hasPadding) {
-          wrapper.style.padding = paddingValues.join(' ');
+        if (tag === 'em' && wrapper && el.matches('span')) {
+          transferItalicLayout(el, wrapper, cs);
         }
       }
     }
   }
 
+
   function cleanDocument(doc, options = {}) {
     const { imageMode = 'path', imageBasePath = '', keepLinks = true } = options;
     doc.querySelectorAll('style, script, noscript, iframe, object, embed, applet, base, meta, link').forEach(n => n.remove());
 
-    // Google Docs uses a paragraph styled as the document title in many exports.
-    //<span class="c4">State of ratratrat33 as of today</span>
-    const titleP = doc.body.querySelector('p.title, p[class~="title"], span[class~="c4"]');
-    if (titleP) {
+    // Only promote an actual Google Docs title paragraph.
+    // Never promote a nested formatting span: doing so can restructure later content.
+    const titleP = doc.body.querySelector('p.title');
+
+    if (titleP && !doc.body.querySelector('h1')) {
       const h1 = doc.createElement('h1');
-      while (titleP.firstChild) h1.appendChild(titleP.firstChild);
+
+      // Carry over the paragraph's captured layout and anchor attributes.
+      for (const attr of ['style', 'id', 'name']) {
+        if (titleP.hasAttribute(attr)) {
+          h1.setAttribute(attr, titleP.getAttribute(attr));
+        }
+      }
+
+      while (titleP.firstChild) {
+        h1.appendChild(titleP.firstChild);
+      }
+
       titleP.replaceWith(h1);
     }
 
@@ -155,7 +321,10 @@
       if (!el.parentNode) continue;
       const tag = el.tagName.toLowerCase();
       if (DROP_TAGS.has(tag)) { el.remove(); continue; }
-      if (tag === 'span' || tag === 'font') {
+      if (
+        tag === 'font' ||
+        (tag === 'span' && !hasPreservedLayoutStyle(el))
+      ) {
         el.replaceWith(...el.childNodes);
         continue;
       }
@@ -175,21 +344,14 @@
       // Strip Google classes but retain IDs/names for internal links.
       el.removeAttribute('class');
 
-      // Preserve the background color captured earlier.
-      const preservedBackground = el.style.backgroundColor;
-      const preservedPadding = tag === 'em' ? el.style.padding : '';
+      // Preserve only the layout/background properties captured earlier.
+      cleanPreservedStyles(el);
 
-      el.removeAttribute('style');
-
-      if (preservedBackground) {
-        el.style.backgroundColor = preservedBackground;
+      if (!keepLinks && tag === 'a') {
+        el.replaceWith(...el.childNodes);
+        continue;
       }
 
-      if (preservedPadding) {
-        el.style.padding = preservedPadding;
-      }
-      if (!keepLinks && tag === 'a') el.replaceWith(...el.childNodes);
-      if (tag === 'a' && el.getAttribute('target') === '_blank') el.setAttribute('rel', 'noopener noreferrer');
       if (tag === 'a' && el.hasAttribute('href')) {
         el.setAttribute('href', unwrapGoogleRedirect(el.getAttribute('href')));
       }
@@ -221,8 +383,7 @@
     const base = options.htmlDirectory || '';
 
     // Capture computed styles in an isolated, script-disabled iframe before stripping CSS.
-    const styleEls = [...doc.querySelectorAll('span,p,tr,td,th')];
-    const styleDoc = await createStyleDocument(doc, styleEls);
+    const styleDoc = await createStyleDocument(doc);
     try {
       addSemanticFormatting(doc, styleDoc);
     } finally {
@@ -244,13 +405,9 @@
         }
 
         span.replaceWith(anchor);
-      } else {
-        span.replaceWith(...span.childNodes);
       }
     });
 
-    // Unwrap Google formatting spans after semantic elements have been inserted.
-    doc.body.querySelectorAll('span').forEach(span => span.replaceWith(...span.childNodes));
 
     // Resolve ZIP image assets. Keep an unresolved path rather than silently dropping an image.
     const imageMode = options.imageMode || 'path';
@@ -272,7 +429,7 @@
 
     cleanDocument(doc, { ...options, imageBasePath: '' });
 
-    // Add custom stylesheet AFTER cleanup so it isn't removed.
+    // Add the blog stylesheet only to the final output, not the style-capture iframe.
     const customStyle = doc.createElement('link');
     customStyle.rel = 'stylesheet';
     customStyle.href = 'https://wbne.github.io/blog.css';
@@ -298,7 +455,7 @@
     };
   }
 
-  async function createStyleDocument(sourceDoc, styleEls) {
+  async function createStyleDocument(sourceDoc) {
     const frame = document.createElement('iframe');
     frame.setAttribute('sandbox', 'allow-same-origin');
     frame.setAttribute('aria-hidden', 'true');
@@ -317,29 +474,12 @@
     for (const style of sourceDoc.querySelectorAll('style')) {
       const copy = target.createElement('style');
       copy.textContent = style.textContent.replace(
-        /@import\\s+[^;]+;?/gi, ''
+        /@import\s+[^;]+;?/gi, ''
       );
       target.head.appendChild(copy);
     }
 
-    // Load your custom stylesheet into the iframe.
-    const customStyle = target.createElement('link');
-    customStyle.rel = 'stylesheet';
-    customStyle.href = new URL('https://wbne.github.io/fancy.css', window.location.href).href;
-
-    // Wait for the stylesheet to load before capturing computed styles.
-    const stylesheetLoaded = new Promise((resolve, reject) => {
-      customStyle.onload = resolve;
-      customStyle.onerror = () => reject(
-        new Error(`Failed to load stylesheet: ${customStyle.href}`)
-      );
-    });
-
-    target.head.appendChild(customStyle);
-
     try {
-      await stylesheetLoaded;
-
       // Clone the Google Docs content after the stylesheet has loaded.
       const clone = sourceDoc.body.cloneNode(true);
 
@@ -347,7 +487,9 @@
         'script,iframe,object,embed,link,style'
       ).forEach(n => n.remove());
 
-      const indexed = [...clone.querySelectorAll('span,p,tr,td,th')];
+      const indexed = [
+        ...clone.querySelectorAll(DOM_SELECTIONS)
+      ];
 
       indexed.forEach((el, i) => {
         el.setAttribute('data-gdc-index', String(i));
