@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Google Docs Formatter</title>
+  <link rel="stylesheet" href="../blog.css">
+</head>
+<body>
+  <h1>Google Docs Formatter</h1>
+
+  <p>Select a Google Docs HTML export (.zip) to convert it into clean HTML.</p>
+  <input id="zipFile" type="file" accept=".zip,application/zip">
+  <button id="convertButton" type="button" disabled>Convert</button>  
+  <button id="previewButton" type="button" disabled>Preview</button>
+
+  <p id="status" role="status" aria-live="polite">Choose a ZIP file to begin.</p>
+  <p id="result"></p>  
+  <iframe id="previewFrame" title="Formatted HTML preview" sandbox="" style="display:none;width:100%;height:600px;border:1px solid #999"></iframe>
+
+  <a href="https://wbne.github.io" style="position:absolute;bottom:0;left:0;"><button id="back" type="button">Home</button></a>
+
+  <!-- Keep these files in the same repository paths, and load JSZip first. -->
+  <script src="./jszip.min.js"></script>
+  <script src="./google-docs-cleaner.js"></script>
+
+  <script>
+    const fileInput = document.getElementById("zipFile");
+    const convertButton = document.getElementById("convertButton");
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+    
+    const previewButton = document.getElementById("previewButton");
+    
+    const previewFrame = document.getElementById("previewFrame");
+    
+    let convertedHtml = "";
+
+    fileInput.addEventListener("change", () => {
+      convertButton.disabled = !fileInput.files.length;
+      result.replaceChildren();
+      status.textContent = fileInput.files.length
+        ? `Ready to convert: ${fileInput.files[0].name}`
+        : "Choose a ZIP file to begin.";
+    });
+
+    previewButton.addEventListener("click", () => {
+      if (!convertedHtml) return;
+      previewFrame.srcdoc = convertedHtml;
+      previewFrame.style.display = "block";
+      previewFrame.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    convertButton.addEventListener("click", async () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      convertButton.disabled = true;
+      result.replaceChildren();
+      status.textContent = "Converting…";
+
+      try {
+        if (!window.JSZip) {
+          throw new Error("JSZip did not load. Check that ./lib/jszip.min.js exists.");
+        }
+        if (!window.GoogleDocsCleaner) {
+          throw new Error("The cleaner did not load. Check that ./google-docs-cleaner.js exists.");
+        }
+
+        // Embed images in the HTML so the result is a single portable file.
+        const converted = await window.GoogleDocsCleaner.convertGoogleDocsZip(
+          file,
+          { imageMode: "data-uri" }
+        );
+
+        convertedHtml = converted.html;
+        
+        previewButton.disabled = false;
+        
+        const outputBlob = new Blob([converted.html], { type: "text/html;charset=utf-8" });
+        const downloadUrl = URL.createObjectURL(outputBlob);
+        const linkWrapper = document.createElement("button");
+        const downloadLink = document.createElement("a");
+        downloadLink.href = downloadUrl;
+        downloadLink.download = file.name.replace(/\.zip$/i, "") + "-formatted.html";
+        downloadLink.textContent = "Download formatted HTML";
+        linkWrapper.appendChild(downloadLink);
+        result.appendChild(linkWrapper);
+
+        const stats = converted.stats;
+        status.textContent =
+          `Done. Found ${stats.headings} headings, ${stats.tables} tables, ` +
+          `${stats.listItems} list items, and ${stats.images} images.`;
+
+        // Revoke the temporary URL after the browser has had time to use it.
+        downloadLink.addEventListener("click", () => {
+          setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
+        }, { once: true });
+      } catch (error) {
+        console.error(error);
+        status.textContent = `Conversion failed: ${error.message || error}`;
+      } finally {
+        convertButton.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

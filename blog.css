@@ -1,0 +1,363 @@
+/* Blog reading theme — inspired by fancy.css
+   Warm paper / charcoal palette, centered reading column, subtle animated accents.
+   Works with semantic HTML produced by GoogleDocsCleaner. */
+
+:root {
+  color-scheme: light dark;
+  --page-light: #ded4c0;
+  --page-dark: #22262b;
+  --ink-light: #292721;
+  --ink-dark: #f1eee8;
+  --muted-light: #625d53;
+  --muted-dark: #b8b5ae;
+  --accent: #7186b5;
+  --accent-warm: #a65d50;
+  --rule-light: rgba(80, 70, 55, .24);
+  --rule-dark: rgba(235, 230, 220, .22);
+  --surface-light: rgba(255, 255, 255, .30);
+  --surface-dark: rgba(255, 255, 255, .055);
+  --content-width:  min( min(100% - 2.5rem, 760px), 760px);
+}
+
+/* Base document */
+html {
+  min-height: 100%;
+  background: var(--page-light);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  box-sizing: border-box;
+  min-height: 100vh;
+  margin: 0;
+  padding: clamp(2rem, 6vw, 5rem) 1.25rem;
+  background: var(--page-light);
+  color: var(--ink-light);
+  font-family: "Noto Sans", "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* The cleaner wraps content in main > section[data-tab="0"]. */
+main,
+body > section,
+section[data-tab] {
+  width: var(--content-width);
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Title and headings */
+h1, h2, h3, h4, h5, h6 {
+  position: relative;
+  color: inherit;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  line-height: 1.22;
+  text-align: left;
+  text-wrap: balance;
+  scroll-margin-top: 2rem;
+}
+
+h1 {
+  margin: 0 0 2.25rem;
+  padding-bottom: 1.1rem;
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  letter-spacing: -.035em;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+h1::after,
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  border-bottom: 3px solid var(--accent);
+  animation: blog-underline 5s ease-in-out infinite;
+}
+
+h1::after {
+  bottom: -2px;
+}
+
+h2 {
+  margin: 2.8rem 0 1rem;
+  padding-bottom: .45rem;
+  font-size: clamp(1.65rem, 4vw, 2.15rem);
+  letter-spacing: -.02em;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+h3 {
+  margin: 2rem 0 .65rem;
+  font-size: 1.4rem;
+}
+
+h4, h5, h6 {
+  margin: 1.5rem 0 .5rem;
+  font-size: 1.15rem;
+}
+
+@keyframes blog-underline {
+  0% {left: 0%; width: 0%;}
+  20% {left: 0%; width: 40%; border-bottom: 2px solid #660000; }
+  40% {left: 30%; width: 40%; border-bottom: 2px solid #006600; }
+  60% {left: 60%; width: 40%; border-bottom: 2px solid #000066; }
+  80% {left: 100%; width: 0%;}
+  100% {left: 100%; width: 0%;}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto;
+    animation-duration: .01ms;
+    animation-iteration-count: 1;
+    transition-duration: .01ms;
+  }
+}
+
+/* Reading rhythm */
+p {
+  margin: 0 0 1.2rem;
+}
+
+strong, b {
+  font-weight: 750;
+}
+
+em, i {
+  font-style: italic;
+}
+
+small {
+  color: var(--muted-light);
+  font-size: .875em;
+}
+
+/* Links retain the understated, inherited-color feel of the original. */
+a {
+  color: inherit;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  transition: color .18s ease, opacity .18s ease;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--accent-warm);
+  opacity: .85;
+}
+
+/* Lists */
+ul, ol {
+  margin: .5rem 0 1.5rem;
+  padding-left: 1.65rem;
+}
+
+li {
+  margin: .35rem 0;
+  padding-left: .15rem;
+}
+
+li::marker {
+  color: var(--accent-warm);
+}
+
+/* Quotes and callouts */
+blockquote {
+  margin: 1.8rem 0;
+  padding: .85rem 1.25rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: var(--surface-light);
+  color: var(--muted-light);
+}
+
+blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+hr {
+  height: 1px;
+  margin: 2.5rem 0;
+  border: 0;
+  background: var(--rule-light);
+}
+
+/* Images: article images are fluid, not forced into circles. */
+img, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.75rem auto;
+  border-radius: 12px;
+}
+
+figure {
+  margin: 2rem 0;
+}
+
+figure img {
+  margin: 0 auto;
+}
+
+figcaption {
+  margin-top: .6rem;
+  color: var(--muted-light);
+  font-size: .875rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  margin: 1.75rem 0;
+  border-collapse: collapse;
+  font-size: .94rem;
+  line-height: 1.55;
+  overflow-wrap: normal;
+}
+
+th, td {
+  padding: .7rem .85rem;
+  border: 1px solid var(--rule-light);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--surface-light);
+  font-weight: 700;
+}
+
+tr:nth-child(even) td {
+  background: rgba(120, 110, 90, .055);
+}
+
+/* Code */
+code, pre, kbd, samp {
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+}
+
+code {
+  padding: .12em .35em;
+  border-radius: 5px;
+  background: var(--surface-light);
+  font-size: .88em;
+}
+
+pre {
+  max-width: 100%;
+  margin: 1.5rem 0;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  border: 1px solid var(--rule-light);
+  border-radius: 10px;
+  background: var(--surface-light);
+  font-size: .875rem;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+  font-size: inherit;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  body {
+    padding: 2rem 1rem;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  main,
+  body > section,
+  section[data-tab] {
+    width: 100%;
+  }
+
+  h1 {
+    margin-bottom: 1.8rem;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  blockquote {
+    margin-right: 0;
+    margin-left: 0;
+    padding: .75rem 1rem;
+  }
+
+  img, video {
+    margin: 1.25rem auto;
+    border-radius: 9px;
+  }
+}
+
+/* Dark mode follows the reader's system preference. */
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: var(--page-dark);
+    color: var(--ink-dark);
+  }
+
+  h1, h2 {
+    border-bottom-color: var(--rule-dark);
+  }
+
+  blockquote {
+    background: var(--surface-dark);
+    color: var(--muted-dark);
+  }
+
+  small, figcaption {
+    color: var(--muted-dark);
+  }
+
+  hr {
+    background: var(--rule-dark);
+  }
+
+  th, td {
+    border-color: var(--rule-dark);
+  }
+
+  th, pre {
+    background: var(--surface-dark);
+  }
+
+  code {
+    background: var(--surface-dark);
+  }
+
+  tr:nth-child(even) td {
+    background: rgba(255, 255, 255, .025);
+  }
+}
